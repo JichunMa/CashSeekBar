@@ -179,7 +179,6 @@ public class CashSeekBar extends View {
     mPaintLine.setStrokeWidth(axisLineHeight);
     mPaintLine.setStrokeCap(Paint.Cap.ROUND);
 
-    //测试画线
     canvas.drawLine(marginHorizontally, canvasHeight / 2,
         canvasWidth - marginHorizontally, canvasHeight / 2, mPaintLine);
 
