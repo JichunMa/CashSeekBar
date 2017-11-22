@@ -86,6 +86,8 @@ public class CashSeekBar extends View {
   Paint mPaintText = new Paint();
 
 
+
+
   public CashSeekBar(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
 
@@ -174,12 +176,12 @@ public class CashSeekBar extends View {
 
     //绘制坐标轴
     mPaintLine.setColor(axisColor);
-    canvas.drawRect(marginHorizontally, canvasHeight / 2 - axisLineHeight / 2,
-        canvasWidth - marginHorizontally, canvasHeight / 2 + axisLineHeight / 2, mPaintLine);
-    //绘制左右边圆角
-    canvas.drawCircle(marginHorizontally, canvasHeight / 2, axisLineHeight / 2, mPaintLine);
-    canvas.drawCircle(canvasWidth - marginHorizontally, canvasHeight / 2,
-        axisLineHeight / 2, mPaintLine);
+    mPaintLine.setStrokeWidth(axisLineHeight);
+    mPaintLine.setStrokeCap(Paint.Cap.ROUND);
+
+    //测试画线
+    canvas.drawLine(marginHorizontally, canvasHeight / 2,
+        canvasWidth - marginHorizontally, canvasHeight / 2, mPaintLine);
 
     maxProgressLength = canvasWidth - 2 * marginHorizontally;
 
@@ -190,15 +192,12 @@ public class CashSeekBar extends View {
 
     //绘制进度轴
     mPaintLine.setColor(axisProgressColor);
-    canvas.drawRect(marginHorizontally, canvasHeight / 2 - axisLineHeight / 2,
-        thumbCenterX, canvasHeight / 2 + axisLineHeight / 2, mPaintLine);
-    //绘制左圆角
-    canvas.drawCircle(marginHorizontally, canvasHeight / 2, axisLineHeight / 2, mPaintLine);
-
+    canvas.drawLine(marginHorizontally, canvasHeight / 2,
+        thumbCenterX, canvasHeight / 2, mPaintLine);
 
     currentProgressLength = thumbCenterX - marginHorizontally;
 
-    //计算进度并展示文字(代码待优化)
+    //计算进度并展示文字
     tipDisplayText = calculateProgress(currentProgressLength, maxProgressLength);
 
     //滑块
@@ -304,8 +303,8 @@ public class CashSeekBar extends View {
     } else {
       displayText = tipDisplayText;
     }
-    return displayText;
     //Log.d(TAG, "progress is :" + progress);
+    return displayText;
   }
 
   //设置进度监听
