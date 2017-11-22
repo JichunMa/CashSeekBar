@@ -73,6 +73,12 @@ public class CashSeekBar extends View {
   private int currentProgressLength;//进度条当前长度
 
 
+  //onDraw 相关参数
+  Path pathTriangle = new Path();
+  Point pointTriangleCenter = new Point();
+  Point pointTextBaseLine = new Point();
+  Rect textOutRect = new Rect();
+
   Paint mPaintLine = new Paint();
   Paint mPaintThumb = new Paint();
   Paint mPaintTestLine = new Paint();
@@ -106,9 +112,9 @@ public class CashSeekBar extends View {
     mPaintThumb.setAntiAlias(true);
     mPaintThumb.setStyle(Paint.Style.FILL);
     mPaintThumb.setColor(Color.WHITE);
-    if(isShadowLayer){
+    if (isShadowLayer) {
       setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-      mPaintThumb.setShadowLayer(10,2,2,Color.GRAY);
+      mPaintThumb.setShadowLayer(10, 2, 2, Color.GRAY);
     }
 
     mPaintTestLine.setAntiAlias(true);
@@ -200,13 +206,9 @@ public class CashSeekBar extends View {
 
 
     //绘制三角
-    Path pathTriangle = new Path();
-
-
     //三角底部中心点坐标
-    Point pointTriangleCenter = new Point(thumbCenterX, canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
-
-
+    pointTriangleCenter.set(thumbCenterX,
+        canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
     mPaintTriangle.setColor(Color.RED);
 
     pathTriangle.moveTo(thumbCenterX, canvasHeight / 2 - thumbRadius - tipBottomMargin);
@@ -219,11 +221,7 @@ public class CashSeekBar extends View {
 
     //绘制文字(文字中心与三角正中央纵向对齐)
     int textRectWidth = (int) mPaintText.measureText(tipDisplayText);
-
-
     int textRectHeight = calculateTextBound(mPaintText, tipDisplayText);
-
-    Point pointTextBaseLine = new Point();
     pointTextBaseLine.x = pointTriangleCenter.x - textRectWidth / 2;
     pointTextBaseLine.y = pointTriangleCenter.y - tipInnerPadding;
     mPaintText.setStyle(Paint.Style.FILL);
@@ -232,11 +230,10 @@ public class CashSeekBar extends View {
 
     //绘制矩形框
     mPaintText.setStyle(Paint.Style.STROKE);
-    Rect textOutRect = new Rect(pointTextBaseLine.x - tipInnerPadding,
+    textOutRect.set(pointTextBaseLine.x - tipInnerPadding,
         pointTextBaseLine.y - textRectHeight - tipInnerPadding,
         pointTextBaseLine.x + textRectWidth + tipInnerPadding,
         pointTextBaseLine.y + tipInnerPadding);
-
     canvas.drawRect(textOutRect, mPaintText);
 
 
