@@ -36,6 +36,7 @@ public class CashSeekBar extends View {
   private int marginHorizontally;//水平间距
   private int tipBottomMargin;//提示层距下间距
   private int instructTextMarginTop;//指示文字距顶
+  private boolean isShadowLayer = true;//滑块是否添加阴影
 
   // TODO: 2017/11/20 　目前写死的参数
   String startText = "200.00";
@@ -101,9 +102,14 @@ public class CashSeekBar extends View {
     mPaintLine.setColor(axisColor);
     mPaintLine.setStrokeWidth(dp2px(context, 10));
 
+
     mPaintThumb.setAntiAlias(true);
     mPaintThumb.setStyle(Paint.Style.FILL);
     mPaintThumb.setColor(Color.WHITE);
+    if(isShadowLayer){
+      setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+      mPaintThumb.setShadowLayer(10,2,2,Color.GRAY);
+    }
 
     mPaintTestLine.setAntiAlias(true);
     mPaintTestLine.setStyle(Paint.Style.STROKE);
@@ -186,12 +192,10 @@ public class CashSeekBar extends View {
 
     currentProgressLength = thumbCenterX - marginHorizontally;
 
-    // TODO: 2017/11/21 计算进度并展示文字(代码待优化)
+    //计算进度并展示文字(代码待优化)
     tipDisplayText = calculateProgress(currentProgressLength, maxProgressLength);
 
     //滑块
-    mPaintThumb.setStyle(Paint.Style.FILL);
-    mPaintThumb.setColor(Color.WHITE);
     canvas.drawCircle(thumbCenterX, canvasHeight / 2, thumbRadius, mPaintThumb);
 
 
