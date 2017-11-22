@@ -207,10 +207,11 @@ public class CashSeekBar extends View {
 
     //绘制三角
     //三角底部中心点坐标
-    pointTriangleCenter.set(thumbCenterX,
-        canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
+    pointTriangleCenter.set(thumbCenterX, canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
+
     mPaintTriangle.setColor(Color.RED);
 
+    pathTriangle.reset();
     pathTriangle.moveTo(thumbCenterX, canvasHeight / 2 - thumbRadius - tipBottomMargin);
     pathTriangle.lineTo(thumbCenterX + triangleHeight / 2, canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
     pathTriangle.lineTo(thumbCenterX - triangleHeight / 2, canvasHeight / 2 - thumbRadius - tipBottomMargin - triangleHeight);
