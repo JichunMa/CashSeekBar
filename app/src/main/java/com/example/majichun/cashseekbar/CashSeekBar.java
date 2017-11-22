@@ -236,6 +236,7 @@ public class CashSeekBar extends View {
     canvas.drawRect(textOutRect, mPaintText);
 
 
+    mPaintText.setStyle(Paint.Style.FILL);
     canvas.drawText(startText, tipInnerPadding,
         canvasHeight / 2 + axisLineHeight / 2 + instructTextMarginTop, mPaintText);
     textRectWidth = (int) mPaintText.measureText(endText);
